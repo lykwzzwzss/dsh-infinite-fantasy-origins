@@ -353,9 +353,3 @@ ChatGPT 自定义 GPT / Codex CLI / OpenAI API 的 system 指令复用；
 ---
 
 ⭐ 觉得有用欢迎 **Star / Fork / Watch**，有问题请开 Issue。
-
-## ☕ 赞赏支持
-
-如果无限幻境：起源对你有帮助，欢迎打赏支持作者持续维护。
-
-<img src="./assets/sponsor.jpg" width="240" alt="赞赏码" />

@@ -28,7 +28,6 @@
     "NOTICE.md",
     "LICENSE",
     "prompts",
-    "assets",
     "SHA256SUMS"
   ],
   "engines": {

@@ -47,6 +47,10 @@
   （原先写的 `Minglink/...` 与 `refs/heads/master.zip` 都是死链）。
 - 新增 `.gitattributes`（`* -text`）禁止换行转换：仓库带 `SHA256SUMS` 校验清单，
   一旦发生 CRLF 转换，用户校验就会对不上。
+- 移除 README 的「赞赏支持」段落与 `assets/sponsor.jpg`（不再随包分发），
+  `package.json` 的 `files` 同步去掉 `assets`。
+- CI 修正：`actions/setup-node` 不再声明 `cache: npm` —— 本项目零依赖、没有 lockfile，
+  缓存步骤会直接失败（首推时 6 个 job 全红就是这个原因）。
 
 ## [0.4.6] — 2026-11-01
 
