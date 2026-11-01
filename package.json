@@ -1,0 +1,61 @@
+{
+  "name": "dsh-infinite-fantasy-origins",
+  "version": "0.4.7",
+  "description": "Infinite Fantasy: Origins（无限幻境：起源）— 装上即进入幻境。DeepSeek Harness 插件：注入 v5 稳定化提示词，可热更、能自检、有回归评测，客户端在对话框上方显示「幻境已开启」状态徽标。",
+  "type": "module",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lykwzzwzss/dsh-infinite-fantasy-origins.git"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./lib/score": "./lib/score.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "lib",
+    "eval",
+    "test",
+    "scripts",
+    "cordis.patch.yml",
+    "CHANGELOG.md",
+    "HARNESS_PLUGIN.md",
+    "README.md",
+    "NOTICE.md",
+    "LICENSE",
+    "prompts",
+    "assets",
+    "SHA256SUMS"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node --check index.js && node --check client.js && node --check lib/score.js && node --check eval/run.mjs && node --check eval/probes.mjs && node --check eval/metrics.mjs && node --check eval/live-compare.mjs && node --check eval/rejudge.mjs && node --check scripts/sha256sums.mjs",
+    "test": "node --test test/score.test.mjs test/integration.test.mjs test/registry.contract.test.mjs",
+    "eval": "node eval/run.mjs --fixtures eval/fixtures.sample.json",
+    "eval:broken": "node eval/run.mjs --fixtures eval/fixtures.broken.json --only slot-waf,slot-recon,collateral-hash --out eval/report.broken.md",
+    "live": "node eval/live-compare.mjs",
+    "rejudge": "node eval/rejudge.mjs",
+    "sums": "node scripts/sha256sums.mjs --write",
+    "harness:check": "npm run check && npm test && npm run eval"
+  },
+  "dsh": {
+    "id": "dsh-infinite-fantasy-origins",
+    "name": "Infinite Fantasy: Origins",
+    "version": "0.4.7",
+    "repo": "lykwzzwzss/dsh-infinite-fantasy-origins",
+    "permissions": "系统提示词注入, 客户端状态条",
+    "client": {
+      "platform": "web",
+      "immediately": true
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

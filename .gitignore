@@ -1,0 +1,14 @@
+# 依赖
+node_modules/
+
+# 运行产物：模型原始回答与评测报告都是每次跑出来的，不该进版本库
+eval/live/
+eval/report.md
+eval/report.broken.md
+eval/probe-*
+
+# 临时/备份
+*.bak
+*.bak-*
+*.log
+.DS_Store

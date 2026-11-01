@@ -1,0 +1,51 @@
+name: test
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [20, 22, 24]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      # 本插件零运行时依赖，不需要 npm install；
+      # 但 CI 必须跑测试，而不只是 node --check（语法检查查不出"用了不存在的服务"）。
+      - name: 语法检查
+        run: npm run check
+        shell: bash
+
+      - name: 单元测试 + 契约测试
+        run: npm test
+        shell: bash
+
+      # 离线评测：用手写 fixtures 跑判定器，不调用模型、不需要密钥。
+      - name: 判定器回归（fixtures）
+        run: npm run eval
+        shell: bash
+
+      - name: 反向用例（必须失败，失败即通过）
+        shell: bash
+        run: |
+          if npm run eval:broken; then
+            echo "::error::eval:broken 本该以非零码退出，说明判定器已经抓不到坏样本了"
+            exit 1
+          else
+            echo "OK：坏样本被正确判红"
+          fi
