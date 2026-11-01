@@ -23,7 +23,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: npm
+          # 不要加 cache: npm —— 本项目零依赖、没有 lockfile，
+          # setup-node 的 npm 缓存步骤会因找不到 lockfile 直接失败。
 
       # 本插件零运行时依赖，不需要 npm install；
       # 但 CI 必须跑测试，而不只是 node --check（语法检查查不出"用了不存在的服务"）。
